@@ -1,162 +1,332 @@
-@extends('backend.layouts.master')
+@extends('admin.admin_layout')
+@section('admin_content')
+        <!-- Main content -->
+        <section class="invoice">
+            <!-- title row -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="page-header">
+                        <i class="fa fa-details"></i> Детали за нарачката.
+                    </h2>
+                </div>
+            </div>
+            <!-- Table row -->
+            <div class="row">
+                <div class="col-xs-12 table-responsive">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Реден број</th>
+                            <th style="text-align: center">Број на нарачка#</th>
+                            <th style="text-align: center">Име и презиме</th>
+                            <th style="text-align: center">Е-маил адреса</th>
+                            <th style="text-align: center">Начин на плаќање</th>
+                            @if($orders)
+{{--                            @foreach($orders as $order)--}}
+                                @php
+                                    $users=DB::table('users')->select('name','surname','phone','age','living_address','delivery_address','email')->where('id',$orders->user_id)->get();
+                                    $paymentMethods=DB::table('payment_methods')->select('payment_method')->where('id',$orders->payment_method_id)->get();
+                                    $deliveries = DB::table('deliveries')->select('type','price')->where('id',$orders->delivery_id)->get();
+                                @endphp
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{$orders->id}}</td>
+                            <td style="text-align: center">{{$orders->order_number}}</td>
+                            <td style="text-align: center" >@foreach($users as $user) {{$user->name}} {{$user->surname}}@endforeach</td>
+                            <td style="text-align: center">{{$orders->address}}</td>
+                            <td style="text-align: center">@foreach($paymentMethods as $paymentMethod) {{$paymentMethod->payment_method}}@endforeach</td>
+                        </tr>
+                        </tbody>
+                        @endif
+                    </table>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
 
-@section('title','Order Detail')
+            <div class="row">
+                <div class="col-xs-6">
+                    <p class="lead">Информации за нарачката</p>
 
-@section('main-content')
-    <div class="card">
-        <h5 class="card-header">Order       <a href="{{route('order-pdf',$order->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>
-        </h5>
-        <div class="card-body">
-            @if($order)
-                <table class="table table-striped table-hover">
-                    @php
-                        $shipping_charge=DB::table('deliveries')->where('id',$order->shipping_id)->pluck('price');
-                    @endphp
-                    <thead>
-                    <tr>
-                        <th>S.N.</th>
-                        <th>Order No.</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Quantity</th>
-                        <th>Charge</th>
-                        <th>Total Amount</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{$order->id}}</td>
-                        <td>{{$order->order_number}}</td>
-                        <td>{{$order->first_name}} {{$order->last_name}}</td>
-                        <td>{{$order->email}}</td>
-                        <td>{{$order->quantity}}</td>
-                        <td>@foreach($shipping_charge as $data) $ {{number_format($data,2)}} @endforeach</td>
-                        <td>${{number_format($order->total_amount,2)}}</td>
-                        <td>
-                            @if($order->status=='new')
-                                <span class="badge badge-primary">{{$order->status}}</span>
-                            @elseif($order->status=='process')
-                                <span class="badge badge-warning">{{$order->status}}</span>
-                            @elseif($order->status=='delivered')
-                                <span class="badge badge-success">{{$order->status}}</span>
-                            @else
-                                <span class="badge badge-danger">{{$order->status}}</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{route('edit-order',$order->id)}}" class="btn btn-primary btn-sm float-left mr-1" style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" title="edit" data-placement="bottom"><i class="fas fa-edit"></i></a>
-                            <form method="POST" action="{{route('delete-order',[$order->id])}}">
-                                @csrf
-                                @method('delete')
-                                <button class="btn btn-danger btn-sm dltBtn" data-id={{$order->id}} style="height:30px; width:30px;border-radius:50%" data-toggle="tooltip" data-placement="bottom" title="Delete"><i class="fas fa-trash-alt"></i></button>
-                            </form>
-                        </td>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">Број на нарачка:</th>
+                                <td>{{$orders->order_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Цена на достава:</th>
+                                <td style="width:50%" >@foreach($deliveries as $delivery){{$delivery->price}}@endforeach мкд.</td>
+                            </tr>
+                            <tr>
+                                <th>Град на достава:</th>
+                                <td style="width:50%" >@foreach($deliveries as $delivery){{$delivery->type}}@endforeach</td>
+                            </tr>
+                            <tr>
+                                <th>Начин на плаќање:</th>
+                                <td style="width:50%" >@foreach($paymentMethods as $paymentMethod){{$paymentMethod->payment_method}}@endforeach</td>
+                            </tr>
+                            <tr>
+                                <th>Вкупна Цена:</th>
+                                <td>Vkupnata  cena ke ja zemame od kart Kriss</td>
+                            </tr>
 
-                    </tr>
-                    </tbody>
-                </table>
-
-                <section class="confirmation_part section_padding">
-                    <div class="order_boxes">
-                        <div class="row">
-                            <div class="col-lg-6 col-lx-4">
-                                <div class="order-info">
-                                    <h4 class="text-center pb-4">ORDER INFORMATION</h4>
-                                    <table class="table">
-                                        <tr class="">
-                                            <td>Order Number</td>
-                                            <td> : {{$order->id}}</td>
-                                        </tr>
-{{--                                        <tr>--}}
-{{--                                            <td>Order Date</td>--}}
-{{--                                            <td> : {{$order->created_at->format('D d M, Y')}} at {{$order->created_at->format('g : i a')}} </td>--}}
-{{--                                        </tr>--}}
-                                        <tr>
-                                            <td>Quantity</td>
-                                            <td> : {{$order->quantity}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Order Status</td>
-                                            <td> : {{$order->status}}</td>
-                                        </tr>
-                                        <tr>
-                                            @php
-                                                $shipping_charge=DB::table('deliveries')->where('id',$order->shipping_id)->pluck('price');
-                                            @endphp
-                                            <td>Shipping Charge</td>
-                                            <td> : $ {{number_format($shipping_charge[0],2)}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Coupon</td>
-                                            <td> : $ {{number_format($order->coupon,2)}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Amount</td>
-                                            <td> : $ {{number_format($order->total_amount,2)}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Payment Method</td>
-                                            <td> : @if($order->payment_method=='cod') Cash on Delivery @else Paypal @endif</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Payment Status</td>
-                                            <td> : {{$order->payment_status}}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-lx-4">
-                                <div class="shipping-info">
-                                    <h4 class="text-center pb-4">SHIPPING INFORMATION</h4>
-                                    <table class="table">
-                                        <tr class="">
-                                            <td>Full Name</td>
-                                            <td> : {{$order->first_name}} {{$order->last_name}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email</td>
-                                            <td> : {{$order->email}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Phone No.</td>
-                                            <td> : {{$order->phone}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Address</td>
-                                            <td> : {{$order->address1}}, {{$order->address2}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Country</td>
-                                            <td> : {{$order->country}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Post Code</td>
-                                            <td> : {{$order->post_code}}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                        </table>
                     </div>
-                </section>
-            @endif
+                </div>
+                <div class="col-xs-6">
+                    <p class="lead">Информации за достава</p>
 
-        </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th style="width:50%">Име и презиме на клиентот:</th>
+                                <td style="width:50%" >@foreach($users as $user) {{$user->name}} {{$user->surname}}@endforeach</td>
+                            </tr>
+                            <tr>
+                                <th>Телефонски број:</th>
+                                <td style="width:50%" >@foreach($users as $user) {{$user->phone}}@endforeach</td>
+                            </tr>
+                            <tr>
+                                <th>Е-маил адреса:</th>
+                                <td style="width:50%" >@foreach($users as $user) {{$user->email}}@endforeach</td>
+                            </tr>
+                            <tr>
+                                <th>Адреса на достава:</th>
+                                <td style="width:50%" >@foreach($users as $user) {{$user->delivery_address}}@endforeach</td>
+                            </tr>
+                            <tr>
+                                <th>Адреса на живеење:</th>
+                                <td style="width:50%" >@foreach($users as $user) {{$user->living_address}}@endforeach</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+
+            <!-- /.row -->
+
+            <!-- this row will not appear when printing -->
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                    </button>
+                    <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                        <i class="fa fa-download"></i> Симние PDF формат
+{{--                        <a href="{{route('order-pdf',$orders->id)}}" class=" btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-download fa-sm text-white-50"></i> Generate PDF</a>--}}
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+        <div class="clearfix"></div>
     </div>
+    <!-- /.content-wrapper -->
+{{--    <footer class="main-footer no-print">--}}
+{{--        <div class="pull-right hidden-xs">--}}
+{{--            <b>Version</b> 2.4.13--}}
+{{--        </div>--}}
+{{--        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights--}}
+{{--        reserved.--}}
+{{--    </footer>--}}
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
 @endsection
-
-@push('styles')
-    <style>
-        .order-info,.shipping-info{
-            background:#ECECEC;
-            padding:20px;
-        }
-        .order-info h4,.shipping-info h4{
-            text-decoration: underline;
-        }
-
-    </style>
-@endpush

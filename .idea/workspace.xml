@@ -154,7 +154,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1617483056049</updated>
-      <workItem from="1617483058388" duration="64393000" />
+      <workItem from="1617483058388" duration="74345000" />
     </task>
     <servers />
   </component>
@@ -178,17 +178,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617656470330" />
-    <state x="1209" y="246" key="NewPhpClassDialog" timestamp="1617606903044">
+    <state x="1209" y="246" key="NewPhpClassDialog" timestamp="1617714069301">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1209" y="246" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617606903044" />
-    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1617495091156">
+    <state x="1209" y="246" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617714069301" />
+    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1617711545088">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617495091156" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617670414392">
+    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617711545088" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617713207716">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617670414392" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617713207716" />
   </component>
 </project>

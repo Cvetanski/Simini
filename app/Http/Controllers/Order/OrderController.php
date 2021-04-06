@@ -21,11 +21,24 @@ class OrderController extends Controller
         $order->delete();
     }
 
+
+    public  function generateRandomString($length = 20)
+    {
+        $characters = '0123456789-ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
     public function show($id)
     {
-        $order=Order::find($id);
+        $orders=Order::findOrFail($id);
+//        dd($orders);
         // return $order;
-        return view('admin.order_show')->with('order',$order);
+        return view('admin.order_show')->with('orders',$orders);
     }
 
     public function pdf(Request $request)
