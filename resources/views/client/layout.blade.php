@@ -76,20 +76,13 @@
                                     <a class="nav-link" href="">Дома</a>
                                 </li>
                                 <li class="nav-item submenu dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Категории</a>
+                                    <a href="{{route('showAllProducts')}}" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Продукти</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Бебиња</a>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Деца</a>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Мажи</a>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Жени</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="">Се за семејството</a>
-                                        </li>
+                                        @foreach($products_categories as $categories)
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{{route('showFilteredProducts',['name'=>$categories->title])}}">{{$categories->title}}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </li>
                                 <li class="nav-item submenu">
