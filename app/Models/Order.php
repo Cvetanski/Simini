@@ -13,6 +13,7 @@ class Order extends Model
         'user_id',
         'delivery_id',
         'payment_method_id',
+        'order_number',
     ];
 
     public function cart_info(){
@@ -20,7 +21,7 @@ class Order extends Model
     }
     public static function getAllOrder($id)
     {
-        return Order::with('cart_info')->find($id);
+        return Order::find($id);
     }
     public static function countActiveOrder(){
         $data=Order::count();
@@ -40,4 +41,5 @@ class Order extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
 }

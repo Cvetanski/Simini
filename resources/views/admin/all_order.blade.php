@@ -118,6 +118,7 @@
                                 <thead>
                                 <tr>
                                     <th>Реден број</th>
+                                    <th style="text-align: center">Број на нарачка</th>
                                     <th style="text-align: center">Адреса</th>
                                     <th style="text-align: center">Корисник</th>
                                     <th style="text-align: center">Начин на плаќање</th>
@@ -132,6 +133,7 @@
                                 <tbody>
                                 <tr>
                                     <td>{{$order->id}}</td>
+                                    <td style="text-align: center">{{$order->order_number}}</td>
                                     <td style="text-align: center">{{$order->address}}</td>
                                     <td style="text-align: center" >@foreach($users as $user) {{$user->name}} {{$user->surname}}@endforeach</td>
                                     <td style="text-align: center">@foreach($paymentMethods as $paymentMethod) {{$paymentMethod->payment_method}}@endforeach</td>

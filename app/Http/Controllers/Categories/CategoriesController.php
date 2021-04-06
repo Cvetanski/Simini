@@ -48,13 +48,10 @@ class CategoriesController extends Controller
     public function updateCategory(Request $request, $id)
     {
         $category=Category::findOrFail($id);
-        $this->validate($request,[
-            'category'=>'string|required',
-        ]);
         $data= $request->all();
+
         $category->fill($data)->save();
 
         return redirect()->route('all-category')->with('message','Успешно ја ажуриравте категоријата!');
-
     }
 }
