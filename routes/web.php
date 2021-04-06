@@ -59,33 +59,44 @@ Route::middleware(['auth'])->group(function() {
 });
 
 //Product Routes
-Route::get('/add-product', [ProductController::class, 'index'])->name('add-product');
-Route::post('/save-product', [ProductController::class, 'saveProduct'])->name('save-product');
-Route::get('/all-product', [ProductController::class, 'allProduct'])->name('all-product');
+Route::middleware(['auth'])->group(function() {
+    Route::get('/add-product', [ProductController::class, 'index'])->name('add-product');
+    Route::post('/save-product', [ProductController::class, 'saveProduct'])->name('save-product');
+    Route::get('/all-product', [ProductController::class, 'allProduct'])->name('all-product');
 //Route::get('/unactive-product/{id}', [ProductController::class, 'unactiveProduct'])->name('unactive-product');
 //Route::get('/active-product/{id}', [ProductController::class, 'activeProduct'])->name('active-product');
-Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
+    Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
 //Route::post('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('update-product');
-Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
+    Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
+});
+
 
 //Orders Route
-Route::get('/all-order',[OrderController::class,'index'])->name('all-order');
-Route::get('/delete-order/{id}',[OrderController::class,'delete'])->name('delete-order');
-Route::get('order-show/{id}',[OrderController::class,'show'])->name('order-show');
+Route::middleware(['auth'])->group(function() {
+    Route::get('/all-order', [OrderController::class, 'index'])->name('all-order');
+    Route::get('/delete-order/{id}', [OrderController::class, 'delete'])->name('delete-order');
+    Route::get('/edit-order/{id}', [OrderController::class, 'delete'])->name('edit-order');
+    Route::get('order-show/{id}', [OrderController::class, 'show'])->name('order-show');
+    Route::get('order-pdf/{id}', [OrderController::class, 'pdf'])->name('order-pdf');
+});
+
 
 //Users Routes
-Route::get('all-user',[UserController::class,'index'])->name('all-user');
-Route::get('edit-user/{id}',[UserController::class,'edit'])->name('edit-user');
-Route::get('delete-user/{id}',[UserController::class,'delete'])->name('delete-user');
-
+Route::middleware(['auth'])->group(function() {
+    Route::get('all-user', [UserController::class, 'index'])->name('all-user');
+    Route::get('edit-user/{id}', [UserController::class, 'edit'])->name('edit-user');
+    Route::get('delete-user/{id}', [UserController::class, 'delete'])->name('delete-user');
+});
 
 //Delivery Routes
-Route::get('add-delivery',[DeliveryController::class,'index'])->name('add-delivery');
-Route::post('save-delivery',[DeliveryController::class,'save'])->name('save-delivery');
-Route::get('all-delivery',[DeliveryController::class,'allDelivery'])->name('all-delivery');
-Route::get('edit-delivery/{id}',[DeliveryController::class,'edit'])->name('edit-delivery');
-Route::get('delete-delivery/{id}',[DeliveryController::class,'delete'])->name('delete-delivery');
-
+Route::middleware(['auth'])->group(function() {
+    Route::get('add-delivery', [DeliveryController::class, 'index'])->name('add-delivery');
+    Route::post('save-delivery', [DeliveryController::class, 'store'])->name('save-delivery');
+    Route::get('all-delivery', [DeliveryController::class, 'allDelivery'])->name('all-delivery');
+    Route::get('edit-delivery/{id}', [DeliveryController::class, 'edit'])->name('edit-delivery');
+    Route::get('delete-delivery/{id}', [DeliveryController::class, 'delete'])->name('delete-delivery');
+    Route::post('/update-delivery/{id}', [DeliveryController::class, 'update'])->name('update-delivery');
+});
 
 
 

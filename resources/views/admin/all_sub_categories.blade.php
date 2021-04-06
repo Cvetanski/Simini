@@ -56,7 +56,7 @@
                                             <button type="submit" class="btn btn-info">Измени</button>
                                         </form>
                                         <form class="inline" action="{{route('delete-subCategory',['id'=>$subCategory->id])}}">
-                                            <button type="submit" class="btn btn-danger">Избриши</button>
+                                            <a class="btn btn-danger" onclick="return confirm('Дали сте сигурни дека сакате да ја избришите оваа поткатегорија?')" href="{{route('delete-subCategory', $subCategory->id)}}">Избриши</a>
                                         </form>
                                     </td>
                                 </tr>

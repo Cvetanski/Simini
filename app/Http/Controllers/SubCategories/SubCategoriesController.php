@@ -17,24 +17,6 @@ class SubCategoriesController extends Model
 
     public function saveSubCategory(Request $request)
     {
-//        $subCategory = new SubCategory($request->all());
-
-//        $subCategory->save();
-//
-
-////        $category = Category::findOrFail($categoryId);
-//        $categoryId = (int)$request->get('id');
-//        $category = Category::all;
-//
-//        $subCategory->category()->attach(15);
-
-
-//
-//        dd($request->all());
-
-//        $subCategory = SubCategory::create($request->title);
-//        dd($request->all());
-
         $counter = count($request->size);
         DB::table('sub_categories')->insert(['title'=>$request->title]);
         $lastId = SubCategory::all()->last()->id;
@@ -65,26 +47,29 @@ class SubCategoriesController extends Model
         $category = SubCategory::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('all-category')->with('message', "Успешно ја избришавте категоријата!");
+        return redirect()->route('all-subCategory')->with('message', "Успешно ја избришавте поткатегоријата!");
     }
 
     public function editSubCategory(int $id)
     {
-        $category=SubCategory::findOrFail($id);
+        $subCategory=SubCategory::findOrFail($id);
 
-        return view('admin.edit_category')->with('category',$category);
+        return view('admin.edit_sub_category')->with('subCategory',$subCategory);
     }
 
     public function updateSubCategory(Request $request, $id)
     {
-        $category=SubCategory::findOrFail($id);
-        $this->validate($request,[
-            'category'=>'string|required',
-        ]);
-        $data= $request->all();
-        $category->fill($data)->save();
+        DB::table('category_sub_category')->where('sub_category_id','=',$id)->delete();
+        DB::table('sub_categories')->update(['title'=>$request->title]);
 
-        return redirect()->route('all-category')->with('message','Успешно ја ажуриравте категоријата!');
+        $counter = count($request->size);
+
+        for($i = 0 ; $i<$counter; $i++){
+            DB::table('category_sub_category')->insert(['category_id'=>$request->size[$i],'sub_category_id'=>$id]);
+        }
+//        dd('done');
+
+        return redirect()->route('all-subCategory')->with('message','Успешно ја ажуриравте поткатегоријата!');
 
     }
 }

@@ -154,7 +154,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1617483056049</updated>
-      <workItem from="1617483058388" duration="49398000" />
+      <workItem from="1617483058388" duration="64393000" />
     </task>
     <servers />
   </component>
@@ -162,22 +162,22 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="728" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1617485618166">
+    <state x="728" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1617665210687">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="728" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617485618166" />
+    <state x="728" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617665210687" />
     <state x="986" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1617542986368">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="986" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617542986368" />
-    <state x="1175" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1617606933757">
+    <state x="1175" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1617668441034">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1175" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617606933757" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1617542936812">
+    <state x="1175" y="278" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617668441034" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1617656470330">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617542936812" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617656470330" />
     <state x="1209" y="246" key="NewPhpClassDialog" timestamp="1617606903044">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -186,9 +186,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617495091156" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617610730148">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617670414392">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617610730148" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617670414392" />
   </component>
 </project>

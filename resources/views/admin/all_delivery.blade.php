@@ -58,7 +58,7 @@
                                             <button type="submit" class="btn btn-info">Измени</button>
                                         </form>
                                         <form class="inline" action="{{route('delete-delivery',['id'=>$delivery->id])}}">
-                                            <button type="submit" class="btn btn-danger">Избриши</button>
+                                            <a class="btn btn-danger" onclick="return confirm('Дали сте сигурни дека сакате да ја избришите оваа категорија?')" href="{{route('delete-delivery', $delivery->id)}}">Избриши</a>
                                         </form>
                                     </td>
                                 </tr>
