@@ -75,16 +75,5 @@ class SubCategoriesController extends Model
         return view('admin.edit_category')->with('category',$category);
     }
 
-    public function updateSubCategory(Request $request, $id)
-    {
-        $category=SubCategory::findOrFail($id);
-        $this->validate($request,[
-            'category'=>'string|required',
-        ]);
-        $data= $request->all();
-        $category->fill($data)->save();
 
-        return redirect()->route('all-category')->with('message','Успешно ја ажуриравте категоријата!');
-
-    }
 }

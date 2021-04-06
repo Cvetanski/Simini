@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         return view('admin.add_product');
     }
-
+/*
     public function saveProduct(Request $request )
     {
         $request->validate([
@@ -87,6 +87,78 @@ class ProductController extends Controller
         return redirect()->route('all-product')->with('message','Успешно додадовте продукт!');
 
     }
+*/
+    public function saveProduct(Request $request )
+    {
+        $request->validate([
+            'title'=>'string|required',
+            'description'=>'string|required',
+            'quantity'=>'required|string',
+            'price'=>'string|required',
+            'publication_status'=>'string|required',
+            'category_id'=>'required|exists:categories,id',
+            'sub_category_id'=>'required|exists:sub_categories,id',
+            'section_id'=>'required|exists:sections,id',
+            'size'=>'required|string',
+            'color'=>'required|string',
+            'discount'=>'required|string',
+            'photo' => 'required|image',
+        ]);
+
+        $data=$request->all();
+
+        $slug=Str::slug($request->title);
+        $count=Product::where('slug', $slug)->count();
+        if($count>0){
+            $slug=$slug.' - '.date('ymdis'). ' - '.rand(0,999);
+        }
+
+        $price=($request->price);
+        $discount=($request->discount);
+        $priceWithDiscount = ($price - $discount);
+
+        if($discount == null){
+            $priceWithDiscount = $price;
+        }else{
+            ($discount !==  null);
+            $priceWithDiscount = ($price - $discount);
+        }
+
+        $data['slug']=$slug;
+        $data['price']=$priceWithDiscount;
+
+        $request->photo->extension();
+        $newImageName = time() . ' - ' .$request->name . ' . ' .
+
+            $request->photo->extension();
+        $data['photo']=$newImageName;
+
+        $request->photo->move(public_path('images'), $newImageName);
+
+        $product = Product::create( $data);
+
+        $counter = count($request->size);
+        DB::table('sub_categories')->insert(['title'=>$request->title]);
+        $lastId = SubCategory::all()->last()->id;
+
+        for($i = 0 ; $i<$counter; $i++){
+            DB::table('category_sub_category')->insert(['category_id'=>$request->size[$i],'sub_category_id'=>$lastId]);
+        }
+
+        if($product){
+            request()->session()->flash('success','Успешно додадовте продукт!');
+        }
+        else{
+            request()->session()->flash('error','Ве молиме обидете се повтроно');
+        }
+
+        return redirect()->route('all-product')->with('message','Успешно додадовте продукт!');
+
+    }
+
+
+
+
 
     public function allProduct()
     {

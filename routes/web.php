@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Categories\CategoriesController;
 use App\Http\Controllers\CKEditor\CKEditorController;
 use App\Http\Controllers\Delivery\DeliveryController;
+use App\Http\Controllers\frontend_controllers\Home;
+use App\Http\Controllers\frontend_controllers\Products;
 use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\SubCategories\SubCategoriesController;
@@ -20,11 +22,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.home');
 });
-
+*/
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 })->middleware(['auth'])->name('admin.dashboard');
@@ -59,15 +61,16 @@ Route::middleware(['auth'])->group(function() {
 });
 
 //Product Routes
-Route::get('/add-product', [ProductController::class, 'index'])->name('add-product');
-Route::post('/save-product', [ProductController::class, 'saveProduct'])->name('save-product');
-Route::get('/all-product', [ProductController::class, 'allProduct'])->name('all-product');
-//Route::get('/unactive-product/{id}', [ProductController::class, 'unactiveProduct'])->name('unactive-product');
-//Route::get('/active-product/{id}', [ProductController::class, 'activeProduct'])->name('active-product');
-Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
-//Route::post('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('update-product');
-Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
-
+Route::middleware(['auth'])->group(function() {
+    Route::get('/add-product', [ProductController::class, 'index'])->name('add-product');
+    Route::post('/save-product', [ProductController::class, 'saveProduct'])->name('save-product');
+    Route::get('/all-product', [ProductController::class, 'allProduct'])->name('all-product');
+    //Route::get('/unactive-product/{id}', [ProductController::class, 'unactiveProduct'])->name('unactive-product');
+    //Route::get('/active-product/{id}', [ProductController::class, 'activeProduct'])->name('active-product');
+    Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
+    //Route::post('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('update-product');
+    Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
+});
 //Orders Route
 Route::get('/all-order',[OrderController::class,'index'])->name('all-order');
 Route::get('/delete-order/{id}',[OrderController::class,'delete'])->name('delete-order');
@@ -91,5 +94,16 @@ Route::get('delete-delivery/{id}',[DeliveryController::class,'delete'])->name('d
 
 
 
-
+//CKEDITOR
 Route::post('ckeditor/image_upload', [CKEditorController::class, 'upload'])->name('upload');
+
+
+//CLIENT ROUTES
+
+//pocetna
+Route::get('/',[Home::class,'showHomePage'])->name('showHomePage');
+Route::get('Продукти/{name}',[Home::class,'showFilteredProducts'])->name('showFilteredProducts');
+
+
+//show products
+Route::get('Продукти',[Products::class,'show_all_products'])->name('showAllProducts');
