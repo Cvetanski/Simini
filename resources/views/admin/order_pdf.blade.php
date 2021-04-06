@@ -1,137 +1,135 @@
-@extends('admin.admin_layout')
-@section('admin_content')
-        <!-- Main content -->
-        <section class="invoice">
-            <!-- title row -->
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2 class="page-header">
-                        <i class="fa fa-details"></i> Детали за нарачката.
-                    </h2>
-                </div>
+ <!-- Main content -->
+    <section class="invoice">
+        <!-- title row -->
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="page-header">
+                    <i class="fa fa-details"></i> Детали за нарачката.
+                </h2>
             </div>
-            <!-- Table row -->
-            <div class="row">
-                <div class="col-xs-12 table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
+        </div>
+        <!-- Table row -->
+        <div class="row">
+            <div class="col-xs-12 table-responsive">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Реден број</th>
+                        <th style="text-align: center">Број на нарачка#</th>
+                        <th style="text-align: center">Име и презиме</th>
+                        <th style="text-align: center">Е-маил адреса</th>
+                        <th style="text-align: center">Начин на плаќање</th>
+                        @if($orders)
+                            {{--                            @foreach($orders as $order)--}}
+                            @php
+                                $users=DB::table('users')->select('name','surname','phone','age','living_address','delivery_address','email')->where('id',$orders->user_id)->get();
+                                $paymentMethods=DB::table('payment_methods')->select('payment_method')->where('id',$orders->payment_method_id)->get();
+                                $deliveries = DB::table('deliveries')->select('type','price')->where('id',$orders->delivery_id)->get();
+                            @endphp
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{$orders->id}}</td>
+                        <td style="text-align: center">{{$orders->order_number}}</td>
+                        <td style="text-align: center" >@foreach($users as $user) {{$user->name}} {{$user->surname}}@endforeach</td>
+                        <td style="text-align: center">{{$orders->address}}</td>
+                        <td style="text-align: center">@foreach($paymentMethods as $paymentMethod) {{$paymentMethod->payment_method}}@endforeach</td>
+                    </tr>
+                    </tbody>
+                    @endif
+                </table>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-xs-6">
+                <p class="lead">Информации за нарачката</p>
+
+                <div class="table-responsive">
+                    <table class="table">
                         <tr>
-                            <th>Реден број</th>
-                            <th style="text-align: center">Број на нарачка#</th>
-                            <th style="text-align: center">Име и презиме</th>
-                            <th style="text-align: center">Е-маил адреса</th>
-                            <th style="text-align: center">Начин на плаќање</th>
-                            @if($orders)
-{{--                            @foreach($orders as $order)--}}
-                                @php
-                                    $users=DB::table('users')->select('name','surname','phone','age','living_address','delivery_address','email')->where('id',$orders->user_id)->get();
-                                    $paymentMethods=DB::table('payment_methods')->select('payment_method')->where('id',$orders->payment_method_id)->get();
-                                    $deliveries = DB::table('deliveries')->select('type','price')->where('id',$orders->delivery_id)->get();
-                                @endphp
+                            <th style="width:50%">Број на нарачка:</th>
+                            <td>{{$orders->order_number}}</td>
                         </tr>
-                        </thead>
-                        <tbody>
                         <tr>
-                            <td>{{$orders->id}}</td>
-                            <td style="text-align: center">{{$orders->order_number}}</td>
-                            <td style="text-align: center" >@foreach($users as $user) {{$user->name}} {{$user->surname}}@endforeach</td>
-                            <td style="text-align: center">{{$orders->address}}</td>
-                            <td style="text-align: center">@foreach($paymentMethods as $paymentMethod) {{$paymentMethod->payment_method}}@endforeach</td>
+                            <th>Цена на достава:</th>
+                            <td style="width:50%" >@foreach($deliveries as $delivery){{$delivery->price}}@endforeach мкд.</td>
                         </tr>
-                        </tbody>
-                        @endif
+                        <tr>
+                            <th>Град на достава:</th>
+                            <td style="width:50%" >@foreach($deliveries as $delivery){{$delivery->type}}@endforeach</td>
+                        </tr>
+                        <tr>
+                            <th>Начин на плаќање:</th>
+                            <td style="width:50%" >@foreach($paymentMethods as $paymentMethod){{$paymentMethod->payment_method}}@endforeach</td>
+                        </tr>
+                        <tr>
+                            <th>Вкупна Цена:</th>
+                            <td>Vkupnata  cena ke ja zemame od kart Kriss</td>
+                        </tr>
+
                     </table>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
+            <div class="col-xs-6">
+                <p class="lead">Информации за достава</p>
 
-            <div class="row">
-                <div class="col-xs-6">
-                    <p class="lead">Информации за нарачката</p>
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <th style="width:50%">Број на нарачка:</th>
-                                <td>{{$orders->order_number}}</td>
-                            </tr>
-                            <tr>
-                                <th>Цена на достава:</th>
-                                <td style="width:50%" >@foreach($deliveries as $delivery){{$delivery->price}}@endforeach мкд.</td>
-                            </tr>
-                            <tr>
-                                <th>Град на достава:</th>
-                                <td style="width:50%" >@foreach($deliveries as $delivery){{$delivery->type}}@endforeach</td>
-                            </tr>
-                            <tr>
-                                <th>Начин на плаќање:</th>
-                                <td style="width:50%" >@foreach($paymentMethods as $paymentMethod){{$paymentMethod->payment_method}}@endforeach</td>
-                            </tr>
-                            <tr>
-                                <th>Вкупна Цена:</th>
-                                <td>Vkupnata  cena ke ja zemame od kart Kriss</td>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-                <div class="col-xs-6">
-                    <p class="lead">Информации за достава</p>
-
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <th style="width:50%">Име и презиме на клиентот:</th>
-                                <td style="width:50%" >@foreach($users as $user) {{$user->name}} {{$user->surname}}@endforeach</td>
-                            </tr>
-                            <tr>
-                                <th>Телефонски број:</th>
-                                <td style="width:50%" >@foreach($users as $user) {{$user->phone}}@endforeach</td>
-                            </tr>
-                            <tr>
-                                <th>Е-маил адреса:</th>
-                                <td style="width:50%" >@foreach($users as $user) {{$user->email}}@endforeach</td>
-                            </tr>
-                            <tr>
-                                <th>Адреса на достава:</th>
-                                <td style="width:50%" >@foreach($users as $user) {{$user->delivery_address}}@endforeach</td>
-                            </tr>
-                            <tr>
-                                <th>Адреса на живеење:</th>
-                                <td style="width:50%" >@foreach($users as $user) {{$user->living_address}}@endforeach</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                <!-- /.col -->
-            </div>
-
-            <!-- /.row -->
-
-            <!-- this row will not appear when printing -->
-            <div class="row no-print">
-                <div class="col-xs-12">
-                    <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
-                    </button>
-                    <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-{{--                        <i class="fa fa-download"></i> Симние PDF формат--}}
-                        <a href="{{route('order-pdf',$orders->id)}}" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download fa-sm text-white-50"></i> Симни PDF формат</a>
-                    </button>
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th style="width:50%">Име и презиме на клиентот:</th>
+                            <td style="width:50%" >@foreach($users as $user) {{$user->name}} {{$user->surname}}@endforeach</td>
+                        </tr>
+                        <tr>
+                            <th>Телефонски број:</th>
+                            <td style="width:50%" >@foreach($users as $user) {{$user->phone}}@endforeach</td>
+                        </tr>
+                        <tr>
+                            <th>Е-маил адреса:</th>
+                            <td style="width:50%" >@foreach($users as $user) {{$user->email}}@endforeach</td>
+                        </tr>
+                        <tr>
+                            <th>Адреса на достава:</th>
+                            <td style="width:50%" >@foreach($users as $user) {{$user->delivery_address}}@endforeach</td>
+                        </tr>
+                        <tr>
+                            <th>Адреса на живеење:</th>
+                            <td style="width:50%" >@foreach($users as $user) {{$user->living_address}}@endforeach</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
-        </section>
-        <!-- /.content -->
-        <div class="clearfix"></div>
+            <!-- /.col -->
+        </div>
+
+        <!-- /.row -->
+
+        <!-- this row will not appear when printing -->
+        <div class="row no-print">
+            <div class="col-xs-12">
+                <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                </button>
+                <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+                    {{--                        <i class="fa fa-download"></i> Симние PDF формат--}}
+                    <a href="{{route('order-pdf',$orders->id)}}" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download fa-sm text-white-50"></i> Симни PDF формат</a>
+                </button>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+    <div class="clearfix"></div>
     </div>
     <!-- /.content-wrapper -->
-{{--    <footer class="main-footer no-print">--}}
-{{--        <div class="pull-right hidden-xs">--}}
-{{--            <b>Version</b> 2.4.13--}}
-{{--        </div>--}}
-{{--        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights--}}
-{{--        reserved.--}}
-{{--    </footer>--}}
+    {{--    <footer class="main-footer no-print">--}}
+    {{--        <div class="pull-right hidden-xs">--}}
+    {{--            <b>Version</b> 2.4.13--}}
+    {{--        </div>--}}
+    {{--        <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights--}}
+    {{--        reserved.--}}
+    {{--    </footer>--}}
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">
@@ -326,7 +324,5 @@
     <!-- Add the sidebar's background. This div must be placed
          immediately after the control sidebar -->
     <div class="control-sidebar-bg"></div>
-</div>
-<!-- ./wrapper -->
-
-@endsection
+    </div>
+    <!-- ./wrapper -->

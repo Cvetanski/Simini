@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -41,14 +42,35 @@ class OrderController extends Controller
         return view('admin.order_show')->with('orders',$orders);
     }
 
-    public function pdf(Request $request)
+    public function pdf(Request $request, int $id)
     {
-        $order=Order::getAllOrder($request->id);
-        // return $order;
-        $file_name=$order->order_number.'-'.$order->first_name.'.pdf';
-        // return $file_name;
-        $pdf=PDF::loadview('backend.order.pdf',compact('order'));
-        return $pdf->download($file_name);
+//        $orders = Order::findOrFail($id);
+//        view()->share('orders',$orders);
+//        if($request->has('download')){
+//            PDF::setOptions(['dpi'=>'150','defaultFont'=>'sensi-serif']);
+//            $pdf = PDF::loadView('order_show');
+//
+//            return $pdf->download('order_show');
+//        }
+//        return view('admin.order_pdf');
+
+//        $orders=Order::all();
+//        // return $order;
+//        $file_name=$orders->order_number.'-'.$orders->first_name.'.pdf';
+//        // return $file_name;
+//        $pdf=PDF::loadview('admin.order_pdf',compact('orders'));
+//
+//        return $pdf->download($file_name);
+
+        // retreive all records from db
+        $orders = Order::all();
+
+        // share data to view
+        view()->share('orders',$orders);
+        $pdf = PDF::loadView('order_show', $orders);
+
+        // download PDF file with download method
+        return $pdf->download('pdf_file.pdf');
     }
 
 }
