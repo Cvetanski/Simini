@@ -116,7 +116,7 @@
                     </button>
                     <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
 {{--                        <i class="fa fa-download"></i> Симние PDF формат--}}
-                        <a href="{{route('order-pdf',$orders->id)}}" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download fa-sm text-white-50"></i> Симни PDF формат</a>
+{{--                        <a href="{{route('order-pdf',$orders->id)}}" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-download fa-sm text-white-50"></i> Симни PDF формат</a>--}}
                     </button>
                 </div>
             </div>

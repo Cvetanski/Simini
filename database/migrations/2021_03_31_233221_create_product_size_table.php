@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSizeProductTable extends Migration
+class CreateProductSizeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class CreateSizeProductTable extends Migration
      */
     public function up()
     {
-        Schema::create('size_product', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('product_size', function (Blueprint $table) {
             $table->integer('quantity');
 
             $table->unsignedBigInteger('product_id');
@@ -31,6 +30,8 @@ class CreateSizeProductTable extends Migration
                 ->on('sizes')
                 ->onDelete('cascade');
 
+            $table->primary(['size_id', 'product_id']);
+
             $table->timestamps();
         });
     }
@@ -42,6 +43,6 @@ class CreateSizeProductTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('size_product');
+        Schema::dropIfExists('product_size');
     }
 }

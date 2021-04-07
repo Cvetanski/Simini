@@ -12,85 +12,30 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\Input;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        return view('admin.add_product');
-    }
-/*
-    public function saveProduct(Request $request )
-    {
-        $request->validate([
-            'title'=>'string|required',
-            'description'=>'string|required',
-            'quantity'=>'required|string',
-            'price'=>'string|required',
-            'publication_status'=>'string|required',
-            'category_id'=>'required|exists:categories,id',
-            'sub_category_id'=>'required|exists:sub_categories,id',
-            'section_id'=>'required|exists:sections,id',
-            'size'=>'required|string',
-            'color'=>'required|string',
-            'discount'=>'required|string',
-            'photo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        return view('admin.add_product',
+        [
+            'sizes' => Size::all(),
         ]);
-
-        $data=$request->all();
-
-        $slug=Str::slug($request->title);
-        $count=Product::where('slug', $slug)->count();
-        if($count>0){
-            $slug=$slug.' - '.date('ymdis'). ' - '.rand(0,999);
-        }
-
-        $price=($request->price);
-        $discount=($request->discount);
-        $priceWithDiscount = ($price - $discount);
-
-        if($discount == null){
-            $priceWithDiscount = $price;
-        }else{
-            ($discount !==  null);
-            $priceWithDiscount = ($price - $discount);
-        }
-
-        $data['slug']=$slug;
-        $data['price']=$priceWithDiscount;
-
-        $request->photo->extension();
-        $newImageName = time() . ' - ' .$request->name . ' . ' .
-
-        $request->photo->extension();
-        $data['photo']=$newImageName;
-
-        $request->photo->move(public_path('images'), $newImageName);
-
-        $product = Product::create( $data);
-
-        $counter = count($request->size);
-        DB::table('sub_categories')->insert(['title'=>$request->title]);
-        $lastId = SubCategory::all()->last()->id;
-
-        for($i = 0 ; $i<$counter; $i++){
-            DB::table('category_sub_category')->insert(['category_id'=>$request->size[$i],'sub_category_id'=>$lastId]);
-        }
-
-        if($product){
-            request()->session()->flash('success','Успешно додадовте продукт!');
-        }
-        else{
-            request()->session()->flash('error','Ве молиме обидете се повтроно');
-        }
-
-        return redirect()->route('all-product')->with('message','Успешно додадовте продукт!');
-
     }
-*/
-    public function saveProduct(Request $request )
+
+
+    private function mapQuantity($size)
+    {
+        return collect($size)->map(function ($i) {
+            return ['quantity' => $i];
+        });
+    }
+
+    public function saveProduct(Request $request)
     {
         $request->validate([
+            'product_number'=>'string|required',
             'title'=>'string|required',
             'description'=>'string|required',
             'quantity'=>'required|string',
@@ -99,7 +44,7 @@ class ProductController extends Controller
             'category_id'=>'required|exists:categories,id',
             'sub_category_id'=>'required|exists:sub_categories,id',
             'section_id'=>'required|exists:sections,id',
-            'size'=>'required|string',
+//            'size'=>'required|string',
             'color'=>'required|string',
             'discount'=>'required|string',
             'photo' => 'required|image',
@@ -130,20 +75,20 @@ class ProductController extends Controller
         $request->photo->extension();
         $newImageName = time() . ' - ' .$request->name . ' . ' .
 
-            $request->photo->extension();
+        $request->photo->extension();
         $data['photo']=$newImageName;
 
         $request->photo->move(public_path('images'), $newImageName);
 
-        $product = Product::create( $data);
+        $product = new Product($data);
 
-        $counter = count($request->size);
-        DB::table('sub_categories')->insert(['title'=>$request->title]);
-        $lastId = SubCategory::all()->last()->id;
+        $product->save();
 
-        for($i = 0 ; $i<$counter; $i++){
-            DB::table('category_sub_category')->insert(['category_id'=>$request->size[$i],'sub_category_id'=>$lastId]);
-        }
+//        $product->size()->attach($data['size'])->pivot([‘quantity’ => $quantity]);
+
+
+        $product->size()->sync($this->mapQuantity($data['size']));
+
 
         if($product){
             request()->session()->flash('success','Успешно додадовте продукт!');
@@ -153,12 +98,7 @@ class ProductController extends Controller
         }
 
         return redirect()->route('all-product')->with('message','Успешно додадовте продукт!');
-
     }
-
-
-
-
 
     public function allProduct()
     {
@@ -182,14 +122,14 @@ class ProductController extends Controller
 //        return redirect::to('all-book');
 //    }
 //
-//    public function deleteProduct(int $id)
-//    {
-//        $book = Product::find($id);
-//
-//        $book->delete();
-//
-//        return redirect('all-book')->with('message','Успешно ја избришавте книгата');
-//    }
+    public function deleteProduct(int $id)
+    {
+        $book = Product::findOrFail($id);
+
+        $book->delete();
+
+        return redirect('all-product')->with('message','Успешно го избришавте продуктот');
+    }
 //
 //    public function activeProduct(int $id)
 //    {
@@ -201,11 +141,11 @@ class ProductController extends Controller
 //        return redirect::to('all-book');
 //    }
 //
-//    public function editProduct(int $id)
-//    {
-//        $bookInfo = Product::findOrFail($id);
-//        $category = Category::where('category')->get();
-//
-//        return view('admin.edit_book');
-//    }
+    public function editProduct(int $id)
+    {
+        $bookInfo = Product::findOrFail($id);
+        $category = Category::where('category')->get();
+
+        return view('admin.edit_book');
+    }
 }

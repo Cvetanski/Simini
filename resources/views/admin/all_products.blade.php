@@ -25,6 +25,7 @@
                             <thead>
                             <tr>
                                 <th>Реден број</th>
+                                <th style="text-align: center">Шифра на продуктот</th>
                                 <th style="text-align: center">Име на Продукт</th>
                                 <th style="text-align: center">Опис на продукт</th>
                                 <th style="text-align: center">URL</th>
@@ -45,6 +46,7 @@
                             <tbody>
                             <tr>
                                 <td>{{$product->id}}</td>
+                                <td style="text-align: center">{{$product->product_number}}</td>
                                 <td style="text-align: center">{{$product->title}}</td>
                                 <td style="text-align: center">{{strip_tags($product->description)}}</td>
                                 <td style="text-align: center">{{$product->slug}}</td>

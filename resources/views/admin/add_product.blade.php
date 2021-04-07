@@ -15,6 +15,10 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label>Шифра на продуктот</label>
+                        <input type="text"  name="product_number" id="product_number" class="form-control" placeholder="Шифра">
+                    </div>
+                    <div class="form-group">
                         <label>Име на продуктот</label>
                         <input type="text"  name="title" id="title" class="form-control" placeholder="Име">
                     </div>
@@ -65,17 +69,31 @@
                     </div>
 
                     <!-- Select multiple-->
+{{--                    <div class="form-group">--}}
+{{--                        <label>Одбери големина</label>--}}
+{{--                        <select multiple class="form-group" name="size[]">--}}
+{{--                            <?php--}}
+{{--                            $allSizes=DB::table('sizes')--}}
+{{--                                ->get()->toArray();--}}
+{{--                            foreach ($allSizes as $size){?>--}}
+{{--                            <option value="{{$size->id}}">{{$size->size}}</option>--}}
+{{--                            <?php } ?>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
+
                     <div class="form-group">
-                        <label>Одбери големина</label>
-                        <select multiple class="form-control" name="size">
-                            <?php
-                            $allSizes=DB::table('sizes')
-                                ->get();
-                            foreach ($allSizes as $size){?>
-                            <option value="{{$size->id}}">{{$size->size}}</option>
-                            <?php } ?>
-                        </select>
+                        <label class="required" for="ingredients">Одбери Големина</label>
+
+                        @include('admin.product_partials_sizes')
+
+                        @if($errors->has('size'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('size') }}
+                            </div>
+                        @endif
+                        <span class="help-block"></span>
                     </div>
+
                     <div class="form-group">
                         <label class="control-label" for="fileInput">Прикачи Слика</label>
                         <div class="input-group">
@@ -185,15 +203,15 @@
         })
     </script>
     <!-- jQuery 3 -->
-    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{{asset('public/bower_components/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap 3.3.7 -->
-    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="{{asset('public/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!-- FastClick -->
-    <script src="../../bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="{{asset('public/bower_components/fastclick/lib/fastclick.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="../../dist/js/adminlte.min.js"></script>
+    <script src="{{asset('public/dist/js/adminlte.min.js')}}"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../../dist/js/demo.js"></script>
+    <script src="{{asset('public/dist/js/demo.js')}}"></script>
     </body>
     </html>
 @endsection

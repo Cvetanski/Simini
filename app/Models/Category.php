@@ -26,11 +26,6 @@ class Category extends Model
         return (int)$this->getAttribute('category_id');
     }
 
-    public function book()
-    {
-        return  $this->hasMany('App\Models\Product','category_id','id');
-    }
-
     public function getBooksByCategory($slug)
     {
         return Category::with('books')->where('slug', $slug)->first();
@@ -49,5 +44,10 @@ class Category extends Model
     public static function getAllParentWithChild()
     {
         return Category::with('child_cat')->where('is_parent',1)->where('status','active')->orderBy('title','ASC')->get();
+    }
+
+    public function product()
+    {
+        return $this->belongsToMany(Product::class,'products','category_id');
     }
 }

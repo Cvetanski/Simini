@@ -57,9 +57,6 @@ class SubCategoriesController extends Model
         return view('admin.edit_sub_category')->with('subCategory',$subCategory);
     }
 
-
-
-
     public function updateSubCategory(Request $request, $id)
     {
         DB::table('category_sub_category')->where('sub_category_id','=',$id)->delete();

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -21,7 +20,6 @@ class OrderController extends Controller
 
         $order->delete();
     }
-
 
     public  function generateRandomString($length = 20)
     {
@@ -62,15 +60,15 @@ class OrderController extends Controller
 //
 //        return $pdf->download($file_name);
 
-        // retreive all records from db
-        $orders = Order::all();
-
-        // share data to view
-        view()->share('orders',$orders);
-        $pdf = PDF::loadView('order_show', $orders);
-
-        // download PDF file with download method
-        return $pdf->download('pdf_file.pdf');
+//        // retreive all records from db
+//        $orders = Order::all();
+//
+//        // share data to view
+//        view()->share('orders',$orders);
+//        $pdf = PDF::loadView('order_show', $orders);
+//
+//        // download PDF file with download method
+//        return $pdf->download('pdf_file.pdf');
     }
 
 }

@@ -20,12 +20,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02e8abf8-e105-4ab6-a1af-0a77c33b6813" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/frontend_controllers/Products.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/simini.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/simini.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Order/OrderController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Product/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Product/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubCategories/SubCategoriesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubCategories/SubCategoriesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/client/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/client/products.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/client/products.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Size.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Size.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/SubCategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/SubCategory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_31_233118_create_sizes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_31_233118_create_sizes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_03_31_233221_create_size_product_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_03_31_233221_create_product_size_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/add_product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/add_product.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/all_products.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/all_products.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/order_pdf.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/order_show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/order_show.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -149,11 +164,6 @@
       <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
       <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/laravel/breeze" />
-      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
-      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
-      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
-      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
-      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
     </include_path>
   </component>
   <component name="ProjectId" id="1qfudVOkfbSAgm9SPzguborut7Z" />
@@ -193,13 +203,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1617483056049</updated>
-
       <workItem from="1617483058388" duration="49398000" />
       <workItem from="1617658966583" duration="1214000" />
       <workItem from="1617662274634" duration="8418000" />
-
       <workItem from="1617483058388" duration="78244000" />
-
+      <workItem from="1617725571487" duration="5972000" />
+      <workItem from="1617741516548" duration="31577000" />
     </task>
     <servers />
   </component>
@@ -216,8 +225,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="565" y="277" key="#Deployment" timestamp="1617741581598">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="565" y="277" key="#Deployment/0.0.1920.1040@0.0.1920.1040" timestamp="1617741581598" />
+    <state x="637" y="201" key="#Options" timestamp="1617741549295">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="637" y="201" key="#Options/0.0.1920.1040@0.0.1920.1040" timestamp="1617741549295" />
     <state x="728" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1617665210687">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -234,26 +252,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1617656470330" />
-    <state x="1209" y="246" key="NewPhpClassDialog" timestamp="1617714069301">
+    <state x="1209" y="246" key="NewPhpClassDialog" timestamp="1617725631497">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="1209" y="246" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617714069301" />
-    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1617711545088">
+    <state x="1209" y="246" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1617725631497" />
+    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1617794962049">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-
-    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617495091156" />
-    <state x="443" y="158" width="672" height="475" key="search.everywhere.popup" timestamp="1617665672871">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617794962049" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617826663592">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="443" y="158" width="672" height="475" key="search.everywhere.popup/0.0.1366.728@0.0.1366.728" timestamp="1617665672871" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617610730148" />
-
-    <state x="564" y="130" width="846" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1617711545088" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1617717844839">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617717844839" />
-
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1617826663592" />
   </component>
 </project>

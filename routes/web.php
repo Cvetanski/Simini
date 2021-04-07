@@ -65,7 +65,6 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/add-product', [ProductController::class, 'index'])->name('add-product');
     Route::post('/save-product', [ProductController::class, 'saveProduct'])->name('save-product');
     Route::get('/all-product', [ProductController::class, 'allProduct'])->name('all-product');
-
     //Route::get('/unactive-product/{id}', [ProductController::class, 'unactiveProduct'])->name('unactive-product');
     //Route::get('/active-product/{id}', [ProductController::class, 'activeProduct'])->name('active-product');
     Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
@@ -73,12 +72,12 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
 });
 
-//Route::get('/unactive-product/{id}', [ProductController::class, 'unactiveProduct'])->name('unactive-product');
-//Route::get('/active-product/{id}', [ProductController::class, 'activeProduct'])->name('active-product');
-    Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
-//Route::post('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('update-product');
-    Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
-});
+////Route::get('/unactive-product/{id}', [ProductController::class, 'unactiveProduct'])->name('unactive-product');
+////Route::get('/active-product/{id}', [ProductController::class, 'activeProduct'])->name('active-product');
+//    Route::get('/edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit-product');
+////Route::post('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('update-product');
+//    Route::get('/delete-product/{id}', [ProductController::class, 'deleteProduct'])->name('delete-product');
+//});
 
 
 
@@ -88,7 +87,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/delete-order/{id}', [OrderController::class, 'delete'])->name('delete-order');
     Route::get('/edit-order/{id}', [OrderController::class, 'delete'])->name('edit-order');
     Route::get('order-show/{id}', [OrderController::class, 'show'])->name('order-show');
-    Route::get('order-pdf/{id}', [OrderController::class, 'pdf'])->name('order-pdf');
+//    Route::get('order-pdf/{id}', [OrderController::class, 'pdf'])->name('order-pdf');
 });
 
 
